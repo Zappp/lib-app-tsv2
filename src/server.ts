@@ -1,7 +1,9 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { sequalize } from './config/database.config';
 import { BookInstance } from './model';
+import { BookValidator } from './validator';
 import { v4 as uuidv4 } from 'uuid';
+import { validationResult } from 'express-validator';
 
 const app = express();
 app.use(express.json());
@@ -15,7 +17,17 @@ app.use(express.json());
   }
 });
 
-app.post('/create', async (req: Request, res: Response) => {
+app.post(
+  '/create',
+  BookValidator.checkCreateBook(),
+  (req: Request,res: Response,next: NextFunction) => {
+    const error = validationResult(req);
+    if(!error.isEmpty()) {
+      return res.json(error);
+    }
+    next();
+  },
+  async (req: Request, res: Response) => {
     sequalize.sync();
     try {
       const record = await BookInstance.create({ ...req.body });
@@ -23,7 +35,7 @@ app.post('/create', async (req: Request, res: Response) => {
     } catch (error) {
       res.json({ msg: "failure", status: 500, route: '/create' });
     };
-});
+  });
 
 
 
