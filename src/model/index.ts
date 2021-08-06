@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { db2 } from "../config/database.config";
+import { sequalize } from "../config/database.config";
 
 interface BookAttributes {
   isbn: string,
@@ -7,7 +7,7 @@ interface BookAttributes {
   completed: boolean
 }
 
-export const BookInstance = db2.define('BookInstance', {
+export const BookInstance = sequalize.define('BookInstance', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,

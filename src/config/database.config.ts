@@ -1,3 +1,3 @@
 import { Sequelize } from "sequelize";
 
-export const db2 = new Sequelize('postgres://marcin:password@localhost:5432/db2');
+export const sequalize = new Sequelize('postgres://marcin:password@localhost:5432/db2');
