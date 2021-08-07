@@ -1,13 +1,12 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { sequalize } from "../config/database.config";
+import { sequelize } from "../config/database.config";
 
-interface BookAttributes {
-  isbn: string,
+interface BookAttributes { // requeres to extend something to use, check in docs
+  id: string,
   title: string,
-  completed: boolean
 }
 
-export const BookInstance = sequalize.define('BookInstance', {
+const BookInstance = sequelize.define('BookInstance', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -17,9 +16,6 @@ export const BookInstance = sequalize.define('BookInstance', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  completed: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  }
 }, {});
+
+export default BookInstance;
