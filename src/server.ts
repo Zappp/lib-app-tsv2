@@ -63,6 +63,43 @@ app.get(
   }
 );
 
+app.put(
+  '/update/:id',
+  BookValidator.checkIdParam(),
+  Middleware.handleValidationError,
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const record = await BookInstance.findOne({ where: { id } });
+      if (!record) {
+        res.json({ msg: 'cannot find record' });
+      }
+      const updateRecord = await record?.update({ completed: !record.getDataValue('completed') });
+      res.json({ record: updateRecord });
+    } catch (error) {
+      res.json({ msg: 'failed to update', status: 500, route: '/update/:id ' });
+    }
+  }
+);
+
+app.delete(
+  '/delete/:id',
+  BookValidator.checkIdParam(),
+  Middleware.handleValidationError,
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const record = await BookInstance.findOne({ where: { id } });
+      if (!record) {
+        res.json({ msg: 'cannot find record' });
+      }
+      const deletedRecord = await record?.destroy()
+      res.json({ record: deletedRecord });
+    } catch (error) {
+      res.json({ msg: 'failed to delete', status: 500, route: '/delete/:id' });
+    }
+  }
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -21,8 +21,7 @@ class BookValidator {
   checkReadBook() {
     return [
       query('limit')
-        .notEmpty()
-        .withMessage('limit should be not empty')
+        .optional()
         .isInt({ min: 1, max: 5 })
         .withMessage('limit value should be <1, 5>)'),
       query('offset')
