@@ -1,6 +1,6 @@
-import { body } from 'express-validator';
+import { body, query, param } from 'express-validator';
 
-export const BookValidator = {
+class BookValidator {
   checkCreateBook() {
     return [
       body('id')
@@ -18,4 +18,27 @@ export const BookValidator = {
         .withMessage('value should be 0 or false'),
     ];
   }
+  checkReadBook() {
+    return [
+      query('limit')
+        .notEmpty()
+        .withMessage('limit should be not empty')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('limit value should be <1, 5>)'),
+      query('offset')
+        .optional()
+        .isNumeric()
+        .withMessage('the value should be a number')
+    ];
+  }
+  checkIdParam() {
+    return [
+      param('id')
+        .notEmpty()
+        .withMessage('param should be not empty')
+        .isUUID(4)
+        .withMessage('value should be uuid v4')
+    ];
+  }
 }
+export default new BookValidator();
