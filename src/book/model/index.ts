@@ -1,5 +1,5 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
-import { sequelize } from "../config/database.config";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../../config/database.config";
 
 interface BookAttributes { // requeres to extend something to use, check in docs
   id: string,

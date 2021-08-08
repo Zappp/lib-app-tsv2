@@ -1,6 +1,6 @@
 import express from "express"; 
 import BookValidator from '../validator';
-import Middleware from '../middleware';
+import Middleware from '../../middleware';
 import BookController from '../controller';
 
 const bookRouter = express.Router();
@@ -27,7 +27,7 @@ bookRouter.get(
 );
 
 bookRouter.put( //endpoint not working 
-  'update/:id',
+  '/update/:id',
   // BookValidator.checkIdParam(), //not sure if work
   BookValidator.checkTitle(),
   Middleware.handleValidationError,

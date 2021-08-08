@@ -1,8 +1,8 @@
 import express from 'express';
 import { sequelize } from './config/database.config';
-import bookRouter from './route';
+import bookRouter from './book/route';
 
-(async () => {
+(async () => { //not working
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -12,6 +12,7 @@ import bookRouter from './route';
 });
 
 const app = express();
+
 app.use(express.json());
 app.use('/api', bookRouter);
 

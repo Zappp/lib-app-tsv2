@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { title } from "process";
 import BookInstance from "../model";
 
 class BookController {
@@ -7,10 +6,8 @@ class BookController {
   async create(req: Request, res: Response) {
     try {
       const record = await BookInstance.create({ ...req.body });
-      console.log(record);
       res.json({ record, msg: 'success' });
     } catch (error) {
-      console.log(error);
       res.json({ msg: 'error', status: 500, route: '/create' });
     }
   }
@@ -40,12 +37,12 @@ class BookController {
     try {
       const record = await BookInstance.findOne({ where: { id } });
       if (!record) {
-        res.json({ msg: 'error', status: '500', route: 'update' });
+        res.json({ msg: 'error', status: 500, route: 'update/:id' });
       }
-      const updatedRecord = await record?.update({ ...req.body })
+      const updatedRecord = await record?.update({ ...req.body });
       res.json({ record: updatedRecord, msg: 'success' });
     } catch (error) {
-      res.json({ msg: 'error', status: 500, route: '/read/:id' })
+      res.json({ msg: 'error', status: 500, route: '/update/:id' });
     }
   }
 
