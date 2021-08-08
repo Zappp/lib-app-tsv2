@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import BookInstance from "../model";
 
-class BookController {
+class AuthorController {
+  
 async create(req: Request, res: Response) {
   try {
-    const record = await BookInstance.create({ ...req.body.book });
+    const record = await BookInstance.create({ ...req.body });
     res.json({ record, msg: 'success' });
   } catch (error) {
     res.json({ msg: 'error', status: 500, route: '/create' });
@@ -59,4 +60,4 @@ async delete (req: Request, res: Response) {
   }
 }
 }
-export default new BookController();
+export default new AuthorController();

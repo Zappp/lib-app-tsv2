@@ -1,4 +1,4 @@
-import express from "express"; 
+import express from "express";
 import BookValidator from '../validator';
 import Middleware from '../../middleware';
 import BookController from '../controller';

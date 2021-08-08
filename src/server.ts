@@ -1,6 +1,7 @@
 import express from 'express';
 import { sequelize } from './config/database.config';
 import bookRouter from './book/route';
+import authorRouter from './author/route';
 
 async () => { //not working
   try {
@@ -13,10 +14,11 @@ async () => { //not working
 
 const app = express();
 
-sequelize.sync();
+sequelize.sync({force: true});
 
 app.use(express.json());
 app.use('/api', bookRouter);
+app.use('/api', authorRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
