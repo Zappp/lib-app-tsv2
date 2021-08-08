@@ -2,16 +2,18 @@ import express from 'express';
 import { sequelize } from './config/database.config';
 import bookRouter from './book/route';
 
-(async () => { //not working
+async () => { //not working
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
-});
+}
 
 const app = express();
+
+sequelize.sync();
 
 app.use(express.json());
 app.use('/api', bookRouter);

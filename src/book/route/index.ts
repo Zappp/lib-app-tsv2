@@ -26,10 +26,9 @@ bookRouter.get(
   BookController.readById
 );
 
-bookRouter.put( //endpoint not working 
+bookRouter.put(
   '/update/:id',
-  // BookValidator.checkIdParam(), //not sure if work
-  BookValidator.checkTitle(),
+  BookValidator.checkUpdateBook(),
   Middleware.handleValidationError,
   BookController.update
 );

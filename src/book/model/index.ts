@@ -1,21 +1,24 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../config/database.config";
 
-interface BookAttributes { // requeres to extend something to use, check in docs
+interface BookAttributes {
   id: string,
   title: string,
 }
 
-const BookInstance = sequelize.define('BookInstance', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-}, {});
-
-export default BookInstance;
+export default class BookInstance extends Model<BookAttributes> { }
+BookInstance.init(
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+  }, {
+  sequelize,
+  tableName: 'book'
+});

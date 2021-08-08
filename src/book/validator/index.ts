@@ -29,7 +29,7 @@ class BookValidator {
         .withMessage('value not uuid v4')
     ];
   }
-  checkTitle() {
+  checkUpdateBook() {
     return [
       param('id')
         .notEmpty()
