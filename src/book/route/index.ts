@@ -9,7 +9,7 @@ bookRouter.post(
   '/create',
   BookValidator.checkCreateBook(),
   Middleware.handleValidationError,
-  BookController.create
+  BookController.handleCreateBookAuthor
 );
 
 bookRouter.get(
