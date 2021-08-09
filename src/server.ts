@@ -14,7 +14,7 @@ async () => { //not working
 
 const app = express();
 
-sequelize.sync({force: true});
+sequelize.sync({ force: true });
 
 app.use(express.json());
 app.use('/api', bookRouter);
