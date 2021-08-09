@@ -1,10 +1,6 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../../config/database.config";
-
-interface AuthorAttributes {
-  id: string,
-  title: string,
-}
+import { sequelize } from "../config/database.config";
+import { AuthorAttributes } from "../interfaces";
 
 export default class AuthorInstance extends Model<AuthorAttributes> { }
 AuthorInstance.init(
@@ -14,7 +10,7 @@ AuthorInstance.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    title: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },

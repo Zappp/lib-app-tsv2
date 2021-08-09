@@ -4,15 +4,19 @@ class BookValidator {
   checkCreateBook() {
     return [
       body('book.id')
-        .optional()
+        .optional() //prod => notempty
         .isUUID(4)
         .withMessage('value not uuid v4'),
       body('book.title')
         .notEmpty()
         .withMessage('empty title'),
-      body('authors') //left for testing in early stages of development
+      body('authors') // prod => removed
         .notEmpty()
         .withMessage(''),
+      check('authors.*.id')
+        .optional() // => prod notempty
+        .isUUID(4)
+        .withMessage('value not uuid v4'),
       check('authors.*.name')
         .notEmpty()
         .withMessage('autor name empty'),
