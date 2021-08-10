@@ -1,8 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database.config";
-import { AuthorAttributes } from "../interfaces";
 
-export default class AuthorInstance extends Model<AuthorAttributes> { }
+export default class AuthorInstance extends Model {
+  public id!: string
+  public name!: string
+ }
 AuthorInstance.init(
   {
     id: {

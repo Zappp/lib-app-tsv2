@@ -9,7 +9,9 @@ class BookValidator {
         .withMessage('value not uuid v4'),
       body('book.title')
         .notEmpty()
-        .withMessage('empty title'),
+        .withMessage('empty title')
+        .isString()
+        .withMessage('value not string'),
       body('authors') // prod => removed
         .notEmpty()
         .withMessage(''),

@@ -1,8 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database.config";
-import { BookAttributes } from "../interfaces";
 
-export default class BookInstance extends Model<BookAttributes> { }
+export default class BookInstance extends Model  {
+  public id!: string
+  public title!: string
+}
 BookInstance.init(
   {
     id: {

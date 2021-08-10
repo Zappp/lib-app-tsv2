@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { Book_has_authorInterface } from "../../interfaces";
+import { Book_has_authorAttributes } from "../../interfaces";
 import BookService from '../service';
 import BookInstance from "../../models/book";
 
 class BookController {
   async handleCreateBookAuthor(req: Request, res: Response) {
-    const requestData: Book_has_authorInterface = { ...req.body };
+    const requestData: Book_has_authorAttributes = { ...req.body };
     try { 
       await BookService.createBookAuthor(requestData);
       res.json({ msg: 'success' });

@@ -2,9 +2,11 @@ import { DataTypes, Model } from "sequelize";
 import AuthorInstance from "./author";
 import BookInstance from "./book";
 import { sequelize } from "../config/database.config";
-import { Book_has_authorAttributes } from "../interfaces";
 
-export default class Book_has_authorInstance extends Model<Book_has_authorAttributes> { }
+export default class Book_has_authorInstance extends Model {
+  public BookInstanceId!: string
+  public AuthorInstanceId!: string
+ }
 Book_has_authorInstance.init(
   {
     BookInstanceId: {
