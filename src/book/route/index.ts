@@ -6,10 +6,10 @@ import BookController from '../controller';
 const bookRouter = express.Router();
 
 bookRouter.post(
-  '/create',
+  '/createBook',
   BookValidator.checkCreateBook(),
   Middleware.handleValidationError,
-  BookController.handleCreateBookAuthor
+  BookController.handleCreateBook
 );
 
 bookRouter.get(

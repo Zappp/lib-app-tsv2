@@ -1,14 +1,17 @@
 interface AuthorAttributes {
-  id: string,
+  id: string
   name: string
 }
 
 interface BookAttributes {
-  id: string,
+  isbn: string
   title: string
 }
 
-export interface Book_has_authorAttributes { 
-  book: BookAttributes,
+export interface RequestBookAttributes extends BookAttributes { 
   authors: AuthorAttributes[]
+}
+
+export interface RequestBookItemAttributes extends RequestBookAttributes {
+  price: number
 }

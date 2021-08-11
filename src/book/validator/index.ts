@@ -3,16 +3,16 @@ import { body, query, param, check } from 'express-validator';
 class BookValidator {
   checkCreateBook() {
     return [
-      body('book.id')
+      body('isbn')
         .optional() //prod => notempty
         .isUUID(4)
         .withMessage('value not uuid v4'),
-      body('book.title')
+      body('title')
         .notEmpty()
         .withMessage('empty title')
         .isString()
         .withMessage('value not string'),
-      body('authors') // prod => removed
+      body('authors') // prod => removed (handle case book with no author)
         .notEmpty()
         .withMessage(''),
       check('authors.*.id')
@@ -21,7 +21,9 @@ class BookValidator {
         .withMessage('value not uuid v4'),
       check('authors.*.name')
         .notEmpty()
-        .withMessage('autor name empty'),
+        .withMessage('autor name empty')
+        .isString()
+        .withMessage('value not string')
     ];
   }
   checkReadBook() {

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { Book_has_authorAttributes } from "../../interfaces";
+import { RequestBookAttributes } from "../../interfaces";
 import BookService from '../service';
 import BookInstance from "../../models/book";
 
 class BookController {
-  async handleCreateBookAuthor(req: Request, res: Response) {
-    const requestData: Book_has_authorAttributes = { ...req.body };
+  async handleCreateBook(req: Request, res: Response) {
+    const requestData: RequestBookAttributes = { ...req.body };
     try { 
-      await BookService.createBookAuthor(requestData);
+      await BookService.createBook(requestData);
       res.json({ msg: 'success' });
     } catch (error) {
       res.json({ msg: 'error', status: 500, route: '/create' });
@@ -15,7 +15,7 @@ class BookController {
   }
 
   async read(req: Request, res: Response) {
-    const limit = req.query?.limit as number | undefined;
+    const limit = req.query?.limit as unknown as number;
     try {
       const record = await BookInstance.findAll({ where: {}, limit });
       res.json({ record, msg: 'success' });

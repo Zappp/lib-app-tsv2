@@ -1,7 +1,7 @@
 import express from 'express';
 import { sequelize } from './config/database.config';
 import bookRouter from './book/route';
-import authorRouter from './author/route';
+import bookItemRouter from './bookItem/route';
 
 async () => { //not working
   try {
@@ -18,7 +18,7 @@ sequelize.sync({ force: true });
 
 app.use(express.json());
 app.use('/api', bookRouter);
-app.use('/api', authorRouter);
+app.use('/api', bookItemRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
