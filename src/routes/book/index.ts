@@ -1,7 +1,7 @@
 import express from "express";
-import BookValidator from '../validator';
+import BookValidator from '../../validators/book';
 import Middleware from '../../middleware';
-import BookController from '../controller';
+import BookController from '../../controllers/book';
 
 const bookRouter = express.Router();
 
@@ -9,7 +9,7 @@ bookRouter.post(
   '/createBook',
   BookValidator.checkCreateBook(),
   Middleware.handleValidationError,
-  BookController.handleCreateBook
+  BookController.createBook
 );
 
 bookRouter.get(

@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import { RequestBookAttributes } from "../../interfaces";
-import BookService from '../service';
 import BookInstance from "../../models/book";
 
 class BookController {
-  async handleCreateBook(req: Request, res: Response) {
+  async createBook(req: Request, res: Response) {
     const requestData: RequestBookAttributes = { ...req.body };
     try { 
-      await BookService.createBook(requestData);
+      await BookInstance.create(requestData);
       res.json({ msg: 'success' });
     } catch (error) {
       res.json({ msg: 'error', status: 500, route: '/create' });

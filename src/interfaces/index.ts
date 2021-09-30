@@ -11,7 +11,3 @@ interface BookAttributes {
 export interface RequestBookAttributes extends BookAttributes { 
   authors: AuthorAttributes[]
 }
-
-export interface RequestBookItemAttributes extends RequestBookAttributes {
-  price: number
-}
