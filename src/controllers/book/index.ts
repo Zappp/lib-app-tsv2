@@ -1,12 +1,24 @@
 import { Request, Response } from "express";
-import { RequestBookAttributes } from "../../interfaces";
-import BookInstance from "../../models/book";
+import { AuthorAttributes, RequestBookAttributes } from "../../interfaces";
+import { AuthorInstance } from "../../models/author";
+import { BookInstance } from "../../models/book";
+import {BookAuthorsInstance} from "../../models/bookAuthors";
 
 class BookController {
   async createBook(req: Request, res: Response) {
     const requestData: RequestBookAttributes = { ...req.body };
-    try { 
-      await BookInstance.create(requestData);
+    try {
+      const bookExists = await BookInstance.findOne({ where: { isbn: requestData.isbn } });
+      if (!bookExists) {
+        await BookInstance.create(requestData);
+        requestData.authors.forEach(async (author: AuthorAttributes) => {
+          const authorExists = await AuthorInstance.findOne({ where: { id: author.id } });
+          if (!authorExists) {
+            await AuthorInstance.create(author);
+          }
+          await BookAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
+        });
+      }
       res.json({ msg: 'success' });
     } catch (error) {
       res.json({ msg: 'error', status: 500, route: '/create' });

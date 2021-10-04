@@ -1,4 +1,4 @@
-interface AuthorAttributes {
+export interface AuthorAttributes {
   id: string
   name: string
 }
