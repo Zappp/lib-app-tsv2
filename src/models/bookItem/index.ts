@@ -9,11 +9,10 @@ export const BookItemInstance = sequelize.define("BookItem", {
     primaryKey: true
   },
   price: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.DECIMAL(20, 2),
     allowNull: false
   }
 });
 
-BookItemInstance.belongsTo(BookInstance, {
-  foreignKey: 'isbn'
-});
+BookInstance.hasMany(BookItemInstance, {onDelete: 'RESTRICT'});
+BookItemInstance.belongsTo(BookInstance);

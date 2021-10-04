@@ -5,13 +5,6 @@ import BookController from '../../controllers/book';
 
 const bookRouter = express.Router();
 
-bookRouter.post(
-  '/createBook',
-  BookValidator.checkCreateBook(),
-  Middleware.handleValidationError,
-  BookController.createBook
-);
-
 bookRouter.get(
   '/read',
   BookValidator.checkReadBook(),

@@ -11,3 +11,8 @@ interface BookAttributes {
 export interface RequestBookAttributes extends BookAttributes { 
   authors: AuthorAttributes[]
 }
+
+export interface RequestBookItemAttributes extends BookAttributes {
+  barcode: string,
+  price: number
+}

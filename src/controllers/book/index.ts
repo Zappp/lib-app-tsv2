@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AuthorAttributes, RequestBookAttributes } from "../../interfaces";
 import { AuthorInstance } from "../../models/author";
 import { BookInstance } from "../../models/book";
 import { BookHasAuthorsInstance } from "../../models/bookHasAuthors";
 
 class BookController {
-  async createBook(req: Request, res: Response) {
+  async createBook(req: Request, res: Response, next: NextFunction) {
     const requestData: RequestBookAttributes = { ...req.body };
     try {
       const bookExists = await BookInstance.findOne({ where: { isbn: requestData.isbn } });
@@ -19,9 +19,9 @@ class BookController {
           await BookHasAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
         });
       }
-      res.json({ msg: 'success' });
+      next();
     } catch (error) {
-      res.json({ msg: 'error', status: 500, route: '/create' });
+      res.json({ msg: 'error', status: 500, route: '/createBook' });
     }
   }
 
