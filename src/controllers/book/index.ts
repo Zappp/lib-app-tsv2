@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AuthorAttributes, RequestBookAttributes } from "../../interfaces";
 import { AuthorInstance } from "../../models/author";
 import { BookInstance } from "../../models/book";
-import {BookAuthorsInstance} from "../../models/bookAuthors";
+import { BookHasAuthorsInstance } from "../../models/bookHasAuthors";
 
 class BookController {
   async createBook(req: Request, res: Response) {
@@ -12,11 +12,11 @@ class BookController {
       if (!bookExists) {
         await BookInstance.create(requestData);
         requestData.authors.forEach(async (author: AuthorAttributes) => {
-          const authorExists = await AuthorInstance.findOne({ where: { id: author.id } });
+          let authorExists = await AuthorInstance.findOne({ where: { id: author.id } });
           if (!authorExists) {
             await AuthorInstance.create(author);
           }
-          await BookAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
+          await BookHasAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
         });
       }
       res.json({ msg: 'success' });
