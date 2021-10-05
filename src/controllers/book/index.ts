@@ -8,20 +8,17 @@ class BookController {
   async createBook(req: Request, res: Response, next: NextFunction) {
     const requestData: RequestBookAttributes = { ...req.body };
     try {
-      const bookExists = await BookInstance.findOne({ where: { isbn: requestData.isbn } });
-      if (!bookExists) {
-        await BookInstance.create(requestData);
-        requestData.authors.forEach(async (author: AuthorAttributes) => {
-          let authorExists = await AuthorInstance.findOne({ where: { id: author.id } });
-          if (!authorExists) {
-            await AuthorInstance.create(author);
-          }
-          await BookHasAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
-        });
-      }
+      await BookInstance.create(requestData);
+      requestData.authors.forEach(async (author: AuthorAttributes) => {
+        let authorExists = await AuthorInstance.findByPk(author.id);
+        if (!authorExists) {
+          await AuthorInstance.create(author);
+        }
+        await BookHasAuthorsInstance.create({ BookIsbn: requestData.isbn, AuthorId: author.id });
+      });
       next();
     } catch (error) {
-      res.json({ msg: 'error', status: 500, route: '/createBook' });
+      return res.json({ msg: 'error', status: 500, route: '/createBook' });
     }
   }
 

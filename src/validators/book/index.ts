@@ -1,9 +1,12 @@
 import { body, query, param, check } from 'express-validator';
+import { bookExists } from '../customValidators';
 
 class BookValidator {
   checkCreateBook() {
     return [
       body('isbn')
+        .custom(bookExists)
+        .bail()
         .optional() //prod => notempty
         .isUUID(4)
         .withMessage('value not uuid v4'),
