@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../config/database.config";
 import { BookInstance } from "../book";
+import { LibraryInstance } from "../library";
 
 export const BookItemInstance = sequelize.define("BookItem", {
   barcode: {
@@ -16,3 +17,6 @@ export const BookItemInstance = sequelize.define("BookItem", {
 
 BookInstance.hasMany(BookItemInstance, {onDelete: 'RESTRICT'});
 BookItemInstance.belongsTo(BookInstance);
+
+LibraryInstance.hasMany(BookItemInstance, {onDelete: 'RESTRICT'});
+BookItemInstance.belongsTo(LibraryInstance);

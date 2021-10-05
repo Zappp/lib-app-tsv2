@@ -7,6 +7,11 @@ class BookItemValidator {
         .optional() // prod => notempty)
         .isUUID(4)
         .withMessage('value is not uuidv4'),
+      body('libraryId')
+        .notEmpty()
+        .withMessage('libraryId not empty')
+        .isUUID(4)
+        .withMessage('value is not uuidv4'),
       body('price')
         .notEmpty()
         .withMessage('price not empty')
