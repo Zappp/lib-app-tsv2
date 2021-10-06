@@ -12,7 +12,7 @@ export interface RequestBookAttributes extends BookAttributes {
   authors: AuthorAttributes[]
 }
 
-export interface RequestBookItemAttributes extends BookAttributes {
+export interface RequestBookItemAttributes extends RequestBookAttributes {
   barcode: string,
   libraryId: string,
   price: number
