@@ -9,7 +9,7 @@ const librarianRouter = express.Router();
 librarianRouter.post(
   '/createBookItem',
   BookValidator.checkCreateBook(),
-  //BookItemValidator.checkCreateBookItem(),
+  BookItemValidator.checkCreateBookItem(),
   Middleware.handleValidationError,
   LibrarianController.createBookItemController
 );
