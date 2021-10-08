@@ -1,4 +1,3 @@
-import { DataTypes } from "sequelize";
 import { BookInstance } from "../book";
 import { AuthorInstance } from "../author";
 import { sequelize } from "../../config/database.config";
