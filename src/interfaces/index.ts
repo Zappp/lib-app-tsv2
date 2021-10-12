@@ -1,3 +1,5 @@
+import { Model, Optional } from "sequelize";
+
 export interface AuthorAttributes {
     id: string
     name: string
@@ -16,4 +18,19 @@ export interface RequestBookItemAttributes extends RequestBookAttributes {
     barcode: string,
     libraryId: string,
     price: number
+}
+
+
+export interface AccountAttributes {
+    id?: string,
+    username: string,
+    hash: string,
+    salt: string
+}
+interface AccountCreationAttributes extends Optional<AccountAttributes, 'id'> { }
+export interface AccountInstance
+    extends Model<AccountAttributes, AccountCreationAttributes>,
+    AccountAttributes {
+    createdAt?: Date, //check later if works if deleted
+    updatedAt?: Date
 }
